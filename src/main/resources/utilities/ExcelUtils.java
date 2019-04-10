@@ -2,6 +2,7 @@ package com.topscorer.sample;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -48,4 +49,21 @@ public class ExcelUtils {
 	        return totalNoOfRowsExp;
 	    }
 
+	        
+	    public static void writeexcel() throws IOException
+		{
+			
+	    	//Need to update as the global path 
+			File src=new File("./TestData/wordpress.xlsx");
+			FileInputStream fis=new FileInputStream(src);
+			XSSFWorkbook wb=new XSSFWorkbook(fis);
+			XSSFSheet sh1= wb.getSheetAt(0);
+			sh1.getRow(0).createCell(2).setCellValue("fail");
+			FileOutputStream fout=new FileOutputStream(new File(System.getProperty("user.dir")+"\\TestData\\wordpress.xlsx"));
+			wb.write(fout);
+			fout.close();
+
+			
+		}
+		
 }
