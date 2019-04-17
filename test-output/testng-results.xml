@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Suite" duration-ms="44537" started-at="2019-04-17T08:25:21Z" finished-at="2019-04-17T08:26:05Z">
+    <groups>
+    </groups>
+    <test name="TC_001" duration-ms="44537" started-at="2019-04-17T08:25:21Z" finished-at="2019-04-17T08:26:05Z">
+      <class name="com.topscorer.testcases.RegistrationModule">
+        <test-method status="PASS" signature="setUp(java.lang.String)[pri:0, instance:com.topscorer.testcases.RegistrationModule@3b94d659]" name="setUp" is-config="true" duration-ms="5798" started-at="2019-04-17T08:25:21Z" finished-at="2019-04-17T08:25:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="TC01_To_verify_student_registrationusing_SignUP_functionality(java.lang.String)[pri:0, instance:com.topscorer.testcases.RegistrationModule@3b94d659]" name="TC01_To_verify_student_registrationusing_SignUP_functionality" duration-ms="38463" started-at="2019-04-17T08:25:26Z" finished-at="2019-04-17T08:26:05Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[https://www.topscorer.co.in/qa-2018/mp/]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TC01_To_verify_student_registrationusing_SignUP_functionality -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.topscorer.testcases.RegistrationModule@3b94d659]" name="teardown" is-config="true" duration-ms="227" started-at="2019-04-17T08:26:05Z" finished-at="2019-04-17T08:26:05Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- com.topscorer.testcases.RegistrationModule -->
+    </test> <!-- TC_001 -->
+  </suite> <!-- Suite -->
+</testng-results>

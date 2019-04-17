@@ -1,7 +1,4 @@
 package com.topscorer.testcases;
-
-import static org.testng.Assert.assertEquals;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
