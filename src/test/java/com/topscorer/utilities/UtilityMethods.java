@@ -327,7 +327,7 @@ public class UtilityMethods {
 		SimpleDateFormat formatter = new SimpleDateFormat("HH-mm-ss dd-MM-yyyy");
 		Date date = new Date();
 		String dt = formatter.format(date);
-		FileUtils.copyFile(scrFile, new File("./Screenshot/" + screenShotName + " " + dt + ".jpg"));
+		FileUtils.copyFile(scrFile, new File(path + screenShotName + " " + dt + ".jpg"));
 
 	}
 

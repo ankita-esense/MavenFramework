@@ -1,5 +1,6 @@
 package com.topscorer.common;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +29,24 @@ public class CommonMethods extends PageObjects {
 
 		// User Registration
 		// String strFileName = "./TestData/Registration.xlsx";
+		fillInputFields(strFileName);
+		String otp = getOtp();
+		seleniumUtil.enterText(register.txtOtp, otp);
+		seleniumUtil.click(register.btnOtp);
+		Thread.sleep(2500);
+		try {
+			Alert alert = driver.switchTo().alert();
+			String alertMessage = driver.switchTo().alert().getText();
+			commonMethods.LogInfo("Alert Message: " + alertMessage);
+			alert.accept();
+		} catch (Exception e) {
+			commonMethods.LogInfo("No Alert required.");
+		}
+		seleniumUtil.pageLoadTime();
+	}
+
+	
+	public void fillInputFields(String strFileName) throws Exception {
 		String strSheetName = "Register";
 		strFirstName = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 1);
 		txtLastName = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 2);
@@ -67,21 +86,9 @@ public class CommonMethods extends PageObjects {
 		}
 		seleniumUtil.click(register.chkTNC);
 		seleniumUtil.click(register.btnRegister);
-		String otp = getOtp();
-		seleniumUtil.enterText(register.txtOtp, otp);
-		seleniumUtil.click(register.btnOtp);
-		Thread.sleep(2500);
-		try {
-			Alert alert = driver.switchTo().alert();
-			String alertMessage = driver.switchTo().alert().getText();
-			commonMethods.LogInfo("Alert Message: " + alertMessage);
-			alert.accept();
-		} catch (Exception e) {
-			commonMethods.LogInfo("No Alert required.");
-		}
-		seleniumUtil.pageLoadTime();
 	}
-
+	
+	
 	public void LogInfo(String strMessage) {
 		log.info("***************************");
 		log.info(strMessage);
@@ -99,5 +106,24 @@ public class CommonMethods extends PageObjects {
 	    driver.close();
 	    driver.switchTo().window(tabs2.get(0));
 	    return jsonbody.substring(92, 98);
+	}
+	
+	public void LoadEmailPage(String projectURL) {
+		seleniumUtil.openURL(projectURL);
+		seleniumUtil.pageLoadTime();
+		seleniumUtil.click(register.btnLoginRegister);
+		seleniumUtil.pageLoadTime();
+		seleniumUtil.click(register.btnEmail);
+		seleniumUtil.pageLoadTime();
+	}
+
+	public void CheckRequiredAttribute() {
+		for (int i = 0; i < register.listOfElements.length; i++)
+			if (driver.findElement(register.listOfElements[i]).getAttribute("required") == null) {
+				System.out.println("Required validation is missing from " + register.listOfElements[i] + " element.");
+			} else {
+				java.lang.reflect.Field[] x = register.listOfElements.getClass().getDeclaredFields();
+				System.out.println("Required validation is available in " + register.listOfElements[i] + " element.");
+			}
 	}
 }

@@ -5,9 +5,9 @@
 	<parameter name="browserName" value="chrome"></parameter>
 	<test name="TC_001" preserve-order="true">
 		<classes>
-			<class name="com.topscorer.testcases.RegistrationModule">
-			</class>
-			<class name="com.topscorer.testcases.TC_001">
+			<!-- <class name="com.topscorer.testcases.RegistrationModule">
+			</class> -->
+			<class name="com.topscorer.testcases.RegValidationCheck">
 			</class>
 		</classes>
 	</test> <!-- Test -->
