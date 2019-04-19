@@ -1,5 +1,6 @@
 package com.topscorer.testcases;
 
+import org.openqa.selenium.By;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -41,12 +42,13 @@ public class RegistrationModule extends PageObjects {
 		seleniumUtil.click(register.btnEmail);
 		seleniumUtil.pageLoadTime();
 		commonMethods.userRegistration(strFileName);
-		Thread.sleep(2500);
+		Thread.sleep(5000);
 		String strGetCurrentPageURL = seleniumUtil.getCurrentPageURL();
 		softAssert.assertTrue(strGetCurrentPageURL.contains("lms/dashboard"),"Fail: Page is not redirect to LMS Dashboard.");
-		expectedUserName = CommonMethods.strFirstName + " " + CommonMethods.txtLastName;
-		String str_ddlToggle_userName = seleniumUtil.getText(register.ddlToggle_userName);
-		softAssert.assertEquals(str_ddlToggle_userName, expectedUserName, "Fail: User Name does't matched.");
+		expectedUserName = CommonMethods.strFirstName + "  " + CommonMethods.txtLastName;
+		By username = By.xpath("//button[contains(.,'"+ expectedUserName +"')]");
+		String str_ddlToggle_userName = seleniumUtil.getText(username);
+		softAssert.assertEquals(str_ddlToggle_userName.replaceAll("\\s+",""), expectedUserName.replaceAll("\\s+",""), "Fail: User Name does't matched.");
 		softAssert.assertAll();
 	}
 }
