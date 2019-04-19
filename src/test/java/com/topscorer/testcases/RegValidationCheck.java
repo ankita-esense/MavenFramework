@@ -146,5 +146,6 @@ public class RegValidationCheck extends PageObjects {
 		Thread.sleep(2500);
 		actualMsg = driver.findElement(By.id("verifyMobileError")).getText();
 		assertEquals(actualMsg, "Invalid One Time Password (OTP).");
+		
 	}
 }
