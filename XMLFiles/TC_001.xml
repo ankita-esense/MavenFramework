@@ -8,6 +8,9 @@
 			<class name="com.topscorer.testcases.RegistrationModule">
 			</class>
 			<class name="com.topscorer.testcases.RegValidationCheck">
+			<!-- <methods>
+			<include name="VerifyExistingNumberAndConfirmPasswordValidation"></include>
+			</methods> -->
 			</class>
 			<class name="com.topscorer.testcases.forgotpassword">
 			</class>

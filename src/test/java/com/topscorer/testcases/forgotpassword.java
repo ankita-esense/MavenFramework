@@ -24,7 +24,7 @@ public class forgotpassword extends PageObjects  {
 		seleniumUtil.openBrowser(browserName);
 	}
 
-/*	@AfterMethod
+	@AfterMethod
 	public void postCondition(ITestResult result) throws Exception {
 		if(ITestResult.FAILURE==result.getStatus()){
 			snapShot(System.getProperty("user.dir")+"\\Screenshots\\Registration\\",result.getName());
@@ -32,7 +32,6 @@ public class forgotpassword extends PageObjects  {
 			driver.close();
 		}
 	}
-	*/
 	
 	@Parameters({ "projectURL" })
 	@Test

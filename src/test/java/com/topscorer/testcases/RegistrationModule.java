@@ -30,6 +30,7 @@ public class RegistrationModule extends PageObjects {
 	public void postCondition(ITestResult result) throws Exception {
 		if(ITestResult.FAILURE==result.getStatus()){
 			snapShot(System.getProperty("user.dir")+"\\Screenshots\\Registration\\",result.getName());
+			driver.close();
 		}else {
 			driver.close();
 		}

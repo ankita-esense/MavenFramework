@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 
 import org.eclipse.jetty.util.Fields.Field;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.server.handler.ClearElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -42,14 +43,14 @@ public class RegValidationCheck extends PageObjects {
 		commonMethods.LoadEmailPage(projectURL);
 		commonMethods.CheckRequiredAttribute("required");
 	}
-
+/*
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyRequiredFieldsValidationForTimesPage(String projectURL) throws Exception {
 		commonMethods.openURL(projectURL+"times");
 		commonMethods.CheckRequiredAttribute("required");
 	}
-	
+*/	
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyMinMaxLengthValidation(String projectURL) throws Exception {
@@ -85,21 +86,31 @@ public class RegValidationCheck extends PageObjects {
 		seleniumUtil.click(register.btnRegister);
 		Thread.sleep(2500);
 
-		String actualMsg = driver.findElement(By.id("registerError")).getText();
+		String actualMsg = driver.findElement(By.id("regPhone-error")).getText();
 
-		assertEquals(actualMsg, "Please enter valid mobile.");
+		assertEquals(actualMsg, "Please enter a valid mobile number");
 	}
 
 	@Parameters({ "projectURL" })
 	@Test
-	public void VerifyExistingMobileNumberValidation(String projectURL) throws Exception {
-		//TODO add confirm password validation code
+	public void VerifyExistingNumberAndConfirmPasswordValidation(String projectURL) throws Exception {
+		//TODO add confirm password validation code confirmPassword-error
 		commonMethods.LoadEmailPage(projectURL);
 		seleniumUtil.enterText(register.txtFirstName, "khushal");
 		seleniumUtil.enterText(register.txtLastName, "Parikh");
-		seleniumUtil.enterText(register.txtMobile, "7405267784");
+		seleniumUtil.enterText(register.txtMobile, "2255554465");
 		seleniumUtil.enterText(register.txtPassword, "123456");
-		seleniumUtil.enterText(register.txtConfirmPassword, "1235467");
+		seleniumUtil.enterText(register.txtConfirmPassword, "1234567");
+		seleniumUtil.click(register.chkTNC);
+		
+		String actualMsg = driver.findElement(By.id("confirmPassword-error")).getText();
+		assertEquals(actualMsg, "Password and confirm password not match");
+		
+		seleniumUtil.clear(register.txtMobile);
+		seleniumUtil.enterText(register.txtMobile, "7405267784");
+		seleniumUtil.clear(register.txtConfirmPassword);
+		seleniumUtil.enterText(register.txtConfirmPassword, "123456");
+		
 		if (driver.findElement(register.ddlBoard).isDisplayed()) {
 			String ddlBoard = excelUtil.getDataFromExcel(strFileName, strSheetNameReg, 1, 6);
 			seleniumUtil.selectByText(register.ddlBoard, ddlBoard);
@@ -114,15 +125,18 @@ public class RegValidationCheck extends PageObjects {
 			commonMethods.LogInfo("Grade option is not available for this registration form.");
 		}
 		seleniumUtil.click(register.chkTNC);
-		seleniumUtil.click(register.btnRegister);
+		Thread.sleep(2000);
+		seleniumUtil.doubleClick(register.btnRegister);
 		Thread.sleep(2500);
 
+		
+		
 		String alertText = getAlertText();		
 		assertEquals(alertText, "You already have an account associated with this mobile number. Do you want to reset the password?");
 		
 		dismissAlert();
 		
-		String actualMsg = driver.findElement(By.id("registerError")).getText();
+		actualMsg = driver.findElement(By.id("registerError")).getText();
 		assertEquals(actualMsg, "7405267784 already registered account.");
 	}
 	
@@ -132,7 +146,7 @@ public class RegValidationCheck extends PageObjects {
 		commonMethods.LoadEmailPage(projectURL);
 		seleniumUtil.click(register.lnkTerms);
 		Thread.sleep(2000);
-		By divTerms = By.id("termsnh");
+		By divTerms = By.id("terms");
 		if(!isElementDisplayed(divTerms)) {
 			Assert.fail("Terms And Conditions Popup Does not appered.");
 		}
