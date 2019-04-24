@@ -9,6 +9,9 @@
 			</class>
 			<class name="com.topscorer.testcases.RegValidationCheck">
 			</class>
+			<class name="com.topscorer.testcases.forgotpassword">
+			</class>
+			
 		</classes>
 	</test> <!-- Test -->
-</suite> <!-- Suite -->
+</suite> <!-- Suite -->	
