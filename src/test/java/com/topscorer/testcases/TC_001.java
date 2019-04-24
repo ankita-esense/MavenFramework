@@ -8,5 +8,4 @@ public class TC_001 {
 	public void firstTest() {
 		Assert.assertEquals('a','a');
 	}
-	
 }

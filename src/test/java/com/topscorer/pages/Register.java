@@ -19,6 +19,8 @@ public class Register {
 	public By ddlGrade = By.name("standard");
 	public By chkTNC = By.id("termsAndCondition");
 	public By btnRegister = By.xpath("//button[text()='Register']");
+	public By lnkTerms = By.id("term_condition");
+	
 	//From Otp Page
 	public By txtOtp = By.id("otp");
 	public By btnOtp = By.id("btnVerifyMobile");

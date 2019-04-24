@@ -1,5 +1,7 @@
 package com.topscorer.common;
 
+import static org.testng.Assert.fail;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.testng.Assert;
 
 import com.topscorer.utilities.*;
 
@@ -24,7 +27,7 @@ public class CommonMethods extends PageObjects {
 	public static String strFirstName;
 	public static String txtLastName;
 	public static String txtMobile;
-	
+
 	public void userRegistration(String strFileName) throws Exception {
 
 		// User Registration
@@ -45,7 +48,6 @@ public class CommonMethods extends PageObjects {
 		seleniumUtil.pageLoadTime();
 	}
 
-	
 	public void fillInputFields(String strFileName) throws Exception {
 		String strSheetName = "Register";
 		strFirstName = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 1);
@@ -54,12 +56,12 @@ public class CommonMethods extends PageObjects {
 		txtEmail = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 3);
 		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss");
 		Date date = new Date();
-		//txtEmail = txtEmail + "_" + formatter.format(date) + "@mail.com";
+		// txtEmail = txtEmail + "_" + formatter.format(date) + "@mail.com";
 		txtMobile = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 4);
 		txtPassword = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 5);
 		int mobileNumber = seleniumUtil.generateMobile();
 		txtMobile = String.valueOf(mobileNumber);
-		//LogInfo("New user: " + txtEmail);
+		// LogInfo("New user: " + txtEmail);
 		LogInfo("Password: " + txtPassword);
 		LogInfo("User Mobile: " + txtMobile);
 
@@ -68,7 +70,7 @@ public class CommonMethods extends PageObjects {
 
 		seleniumUtil.enterText(register.txtFirstName, strFirstName);
 		seleniumUtil.enterText(register.txtLastName, txtLastName);
-		//seleniumUtil.enterText(register.txtEmail, txtEmail);
+		// seleniumUtil.enterText(register.txtEmail, txtEmail);
 		seleniumUtil.enterText(register.txtMobile, txtMobile);
 		seleniumUtil.enterText(register.txtPassword, txtPassword);
 		seleniumUtil.enterText(register.txtConfirmPassword, txtPassword);
@@ -87,27 +89,26 @@ public class CommonMethods extends PageObjects {
 		seleniumUtil.click(register.chkTNC);
 		seleniumUtil.click(register.btnRegister);
 	}
-	
-	
+
 	public void LogInfo(String strMessage) {
 		log.info("***************************");
 		log.info(strMessage);
 		log.info("***************************");
 	}
-	
+
 	public String getOtp() throws InterruptedException {
 		Thread.sleep(2500);
-		((JavascriptExecutor)driver).executeScript("window.open()");
-		ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
-	    driver.switchTo().window(tabs2.get(1));
-	    driver.get("https://www.topscorer.co.in/qa-2018/lms/ajax/printData");
-	    String jsonbody = driver.findElement(By.xpath("/html/body")).getText();
-	    System.out.println("otp: "+jsonbody.substring(92, 98));
-	    driver.close();
-	    driver.switchTo().window(tabs2.get(0));
-	    return jsonbody.substring(92, 98);
+		((JavascriptExecutor) driver).executeScript("window.open()");
+		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(tabs2.get(1));
+		driver.get("https://www.topscorer.co.in/qa-2018/lms/ajax/printData");
+		String jsonbody = driver.findElement(By.xpath("/html/body")).getText();
+		System.out.println("otp: " + jsonbody.substring(92, 98));
+		driver.close();
+		driver.switchTo().window(tabs2.get(0));
+		return jsonbody.substring(92, 98);
 	}
-	
+
 	public void LoadEmailPage(String projectURL) {
 		seleniumUtil.openURL(projectURL);
 		seleniumUtil.pageLoadTime();
@@ -117,13 +118,25 @@ public class CommonMethods extends PageObjects {
 		seleniumUtil.pageLoadTime();
 	}
 
-	public void CheckRequiredAttribute() {
+	public void CheckRequiredAttribute(String atr) {
 		for (int i = 0; i < register.listOfElements.length; i++)
-			if (driver.findElement(register.listOfElements[i]).getAttribute("required") == null) {
-				System.out.println("Required validation is missing from " + register.listOfElements[i] + " element.");
-			} else {
-				java.lang.reflect.Field[] x = register.listOfElements.getClass().getDeclaredFields();
-				System.out.println("Required validation is available in " + register.listOfElements[i] + " element.");
+			if (atr == "required") {
+				if (driver.findElement(register.listOfElements[i]).getAttribute(atr) == null) {
+					System.out.println(atr + " validation is missing from " + register.listOfElements[i] + " element.");
+					Assert.fail(atr + " validation is missing from " + register.listOfElements[i] + " element.");
+				} else {
+					java.lang.reflect.Field[] x = register.listOfElements.getClass().getDeclaredFields();
+					System.out.println(atr + " validation is available in " + register.listOfElements[i] + " element.");
+				}
+			}
+			else if(i==0||i==2||i==3){
+				if (driver.findElement(register.listOfElements[i]).getAttribute(atr) == null) {
+					System.out.println(atr + " validation is missing from " + register.listOfElements[i] + " element.");
+					Assert.fail(atr + " validation is missing from " + register.listOfElements[i] + " element.");
+				} else {
+					java.lang.reflect.Field[] x = register.listOfElements.getClass().getDeclaredFields();
+					System.out.println(atr + " validation is available in " + register.listOfElements[i] + " element.");
+				}
 			}
 	}
 }

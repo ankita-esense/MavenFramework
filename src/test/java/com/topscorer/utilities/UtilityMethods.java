@@ -309,7 +309,7 @@ public class UtilityMethods {
 		alert.accept();
 	}
 
-	public void acceptDismiss() {
+	public void dismissAlert() {
 		Alert alert = driver.switchTo().alert();
 		alert.dismiss();
 	}
