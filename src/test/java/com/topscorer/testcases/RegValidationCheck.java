@@ -45,6 +45,13 @@ public class RegValidationCheck extends PageObjects {
 
 	@Parameters({ "projectURL" })
 	@Test
+	public void VerifyRequiredFieldsValidationForTimesPage(String projectURL) throws Exception {
+		commonMethods.openURL(projectURL+"times");
+		commonMethods.CheckRequiredAttribute("required");
+	}
+	
+	@Parameters({ "projectURL" })
+	@Test
 	public void VerifyMinMaxLengthValidation(String projectURL) throws Exception {
 		commonMethods.LoadEmailPage(projectURL);
 		commonMethods.CheckRequiredAttribute("minlength");

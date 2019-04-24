@@ -28,6 +28,31 @@ public class CommonMethods extends PageObjects {
 	public static String txtLastName;
 	public static String txtMobile;
 
+	public void userLogin(String userEmail, String userPassword) throws Exception {
+
+		if (seleniumUtil.isElementDisplayed(register.btnLoginRegister) == true) {
+
+			seleniumUtil.click(register.btnLoginRegister);
+			seleniumUtil.implicitLoadTime();
+			seleniumUtil.enterText(loginpage.txtEmail, userEmail);
+			seleniumUtil.click(loginpage.btnNext);
+			seleniumUtil.enterText(loginpage.txtPassword, userPassword);
+			seleniumUtil.click(loginpage.btnLogin);
+			Thread.sleep(2500);
+			try {
+				Alert alert = driver.switchTo().alert();
+				String alertMessage = driver.switchTo().alert().getText();
+				commonMethods.LogInfo("Alert Message: " + alertMessage);
+				alert.accept();
+			} catch (Exception e) {
+				commonMethods.LogInfo("No Alert required.");
+			}
+			seleniumUtil.implicitLoadTime();
+		} else {
+			log.info("User is logged In");
+		}
+	}
+	
 	public void userRegistration(String strFileName) throws Exception {
 
 		// User Registration
