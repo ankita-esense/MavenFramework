@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -53,11 +55,10 @@ public class CommonMethods extends PageObjects {
 		}
 	}
 	
-	public void userRegistration(String strFileName) throws Exception {
-
+	public String userRegistration(String strFileName) throws Exception {
 		// User Registration
 		// String strFileName = "./TestData/Registration.xlsx";
-		fillInputFields(strFileName);
+		String txtMobile = fillInputFields(strFileName);
 		String otp = getOtp();
 		seleniumUtil.enterText(register.txtOtp, otp);
 		seleniumUtil.click(register.btnOtp);
@@ -71,9 +72,10 @@ public class CommonMethods extends PageObjects {
 			commonMethods.LogInfo("No Alert required.");
 		}
 		seleniumUtil.pageLoadTime();
+		return txtMobile;
 	}
 
-	public void fillInputFields(String strFileName) throws Exception {
+	public String fillInputFields(String strFileName) throws Exception {
 		String strSheetName = "Register";
 		strFirstName = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 1);
 		txtLastName = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 2);
@@ -113,6 +115,7 @@ public class CommonMethods extends PageObjects {
 		}
 		seleniumUtil.click(register.chkTNC);
 		seleniumUtil.click(register.btnRegister);
+		return txtMobile;
 	}
 
 	public void LogInfo(String strMessage) {
@@ -122,16 +125,26 @@ public class CommonMethods extends PageObjects {
 	}
 
 	public String getOtp() throws InterruptedException {
-		Thread.sleep(2500);
+		Thread.sleep(5000);
 		((JavascriptExecutor) driver).executeScript("window.open()");
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
 		driver.get("https://www.topscorer.co.in/qa-2018/lms/ajax/printData");
 		String jsonbody = driver.findElement(By.xpath("/html/body")).getText();
-		System.out.println("otp: " + jsonbody.substring(92, 98));
+		
+		Pattern p = Pattern.compile("otp\"\\:([0-9]*)");
+        Matcher m = p.matcher(jsonbody);
+        while(m.find()) {
+            if(m.group().length()!=0) {
+            	jsonbody = m.group();
+            	break;
+            }
+        }
+		
+		System.out.println("otp: " + jsonbody);
 		driver.close();
 		driver.switchTo().window(tabs2.get(0));
-		return jsonbody.substring(92, 98);
+		return jsonbody.substring(5, 11);
 	}
 
 	public void LoadEmailPage(String projectURL) {
@@ -143,24 +156,24 @@ public class CommonMethods extends PageObjects {
 		seleniumUtil.pageLoadTime();
 	}
 
-	public void CheckRequiredAttribute(String atr) {
-		for (int i = 0; i < register.listOfElements.length; i++)
+	public void CheckRequiredAttribute(String atr, By[] listOfElements) {
+		for (int i = 0; i < listOfElements.length; i++)
 			if (atr == "required") {
-				if (driver.findElement(register.listOfElements[i]).getAttribute(atr) == null) {
-					System.out.println(atr + " validation is missing from " + register.listOfElements[i] + " element.");
-					Assert.fail(atr + " validation is missing from " + register.listOfElements[i] + " element.");
+				if (driver.findElement(listOfElements[i]).getAttribute(atr) == null) {
+					System.out.println(atr + " validation is missing from " + listOfElements[i] + " element.");
+					Assert.fail(atr + " validation is missing from " + listOfElements[i] + " element.");
 				} else {
-					java.lang.reflect.Field[] x = register.listOfElements.getClass().getDeclaredFields();
-					System.out.println(atr + " validation is available in " + register.listOfElements[i] + " element.");
+					java.lang.reflect.Field[] x = listOfElements.getClass().getDeclaredFields();
+					System.out.println(atr + " validation is available in " + listOfElements[i] + " element.");
 				}
 			}
 			else if(i==0||i==2||i==3){
-				if (driver.findElement(register.listOfElements[i]).getAttribute(atr) == null) {
-					System.out.println(atr + " validation is missing from " + register.listOfElements[i] + " element.");
-					Assert.fail(atr + " validation is missing from " + register.listOfElements[i] + " element.");
+				if (driver.findElement(listOfElements[i]).getAttribute(atr) == null) {
+					System.out.println(atr + " validation is missing from " + listOfElements[i] + " element.");
+					Assert.fail(atr + " validation is missing from " + listOfElements[i] + " element.");
 				} else {
-					java.lang.reflect.Field[] x = register.listOfElements.getClass().getDeclaredFields();
-					System.out.println(atr + " validation is available in " + register.listOfElements[i] + " element.");
+					java.lang.reflect.Field[] x = listOfElements.getClass().getDeclaredFields();
+					System.out.println(atr + " validation is available in " + listOfElements[i] + " element.");
 				}
 			}
 	}

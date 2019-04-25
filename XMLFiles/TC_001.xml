@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite" verbose="2">	
-	<parameter name="projectURL" value="https://www.topscorer.co.in/qa-2018/mp/"></parameter>
+<suite name="Suite" verbose="2">
+	<parameter name="projectURL"
+		value="https://www.topscorer.co.in/qa-2018/mp/"></parameter>
 	<parameter name="browserName" value="chrome"></parameter>
 	<test name="TC_001" preserve-order="true">
 		<classes>
 			<class name="com.topscorer.testcases.RegistrationModule">
 			</class>
 			<class name="com.topscorer.testcases.RegValidationCheck">
-			<!-- <methods>
-			<include name="VerifyExistingNumberAndConfirmPasswordValidation"></include>
-			</methods> -->
 			</class>
 			<class name="com.topscorer.testcases.forgotpassword">
 			</class>

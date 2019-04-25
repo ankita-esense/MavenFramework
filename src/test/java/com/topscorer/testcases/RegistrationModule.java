@@ -138,8 +138,8 @@ public class RegistrationModule extends PageObjects {
 		fluentWait(timespage.btnSubscribeNow);
 		seleniumUtil.click(timespage.btnSubscribeNow);
 		Thread.sleep(5000);
-		seleniumUtil.enterText(timespage.txtFirstName, "Umang");
-		seleniumUtil.enterText(timespage.txtLastName, "Patel");
+		seleniumUtil.enterText(timespage.txtFirstName, "Khushal");
+		seleniumUtil.enterText(timespage.txtLastName, "Parikh");
 		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss");
 		Date date = new Date();
 		String txtEmail = "automation"+"_"+formatter.format(date)+"@mail.com";
@@ -190,4 +190,36 @@ public class RegistrationModule extends PageObjects {
 		softAssert.assertEquals(str_ddlToggle_userName.replaceAll("\\s+",""), expectedUserName.replaceAll("\\s+",""), "Fail: User Name does't matched.");
 		softAssert.assertAll();
 	}
+	
+	@Parameters({ "projectURL" })
+	@Test
+	public void TC_07_ChangeMobileFunctionality(String projectURL) throws Exception {
+		SoftAssert softAssert = new SoftAssert();
+		seleniumUtil.openURL(projectURL);
+		System.out.println(projectURL);
+		seleniumUtil.click(register.btnLoginRegister);
+		seleniumUtil.pageLoadTime();
+		seleniumUtil.click(register.btnEmail);
+		seleniumUtil.pageLoadTime();
+		commonMethods.userRegistration(strFileName);
+		Thread.sleep(5000);
+		seleniumUtil.click(profilepage.ddlPrimary);
+		seleniumUtil.click(profilepage.lnkProfile);
+		pageLoadTime();
+		Thread.sleep(2500);
+		seleniumUtil.click(profilepage.lnkChangeMobile);
+		Thread.sleep(5000);
+		int mobileNumber = seleniumUtil.generateMobile();
+		String txtMobile = String.valueOf(mobileNumber);
+		seleniumUtil.enterText(profilepage.txtMobileNumber,txtMobile);
+		seleniumUtil.click(profilepage.btnSubmit);
+		Thread.sleep(2500);
+		String otp = commonMethods.getOtp();
+		seleniumUtil.enterText(profilepage.txtOtp, otp);
+		seleniumUtil.click(profilepage.btnVerifyMobileNumber);
+		Thread.sleep(2500);
+		seleniumUtil.click(profilepage.btnOK);
+		Thread.sleep(2500);
+	}
+	
 }

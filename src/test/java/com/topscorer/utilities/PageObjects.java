@@ -25,7 +25,8 @@ public class PageObjects extends UtilityMethods {
 	// Page Objects
 	// ****************
 	public static Register register = new Register();
-	public static forgotpage forgotp = new forgotpage();
+	public static ForgotPage forgotp = new ForgotPage();
 	public static LoginPage loginpage = new LoginPage();
 	public static TimesPage timespage = new TimesPage();
+	public static ProfilePage profilepage = new ProfilePage();
 }

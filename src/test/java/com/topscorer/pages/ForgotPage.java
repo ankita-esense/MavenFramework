@@ -2,7 +2,7 @@ package com.topscorer.pages;
 
 import org.openqa.selenium.By;
 
-public class forgotpage {
+public class ForgotPage {
 	
 
 	public By btnforgotpwd = By.xpath("//a[@class='forgot_action']");

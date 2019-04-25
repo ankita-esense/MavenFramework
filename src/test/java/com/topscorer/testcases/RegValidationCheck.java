@@ -41,22 +41,30 @@ public class RegValidationCheck extends PageObjects {
 	@Test
 	public void VerifyRequiredFieldsValidation(String projectURL) throws Exception {
 		commonMethods.LoadEmailPage(projectURL);
-		commonMethods.CheckRequiredAttribute("required");
+		By[] listOfElements = {register.txtFirstName,register.txtMobile,register.txtPassword,register.txtConfirmPassword,register.ddlBoard,register.ddlGrade,register.chkTNC};
+		commonMethods.CheckRequiredAttribute("required",listOfElements);
 	}
-/*
+
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyRequiredFieldsValidationForTimesPage(String projectURL) throws Exception {
 		commonMethods.openURL(projectURL+"times");
-		commonMethods.CheckRequiredAttribute("required");
+		seleniumUtil.pageLoadTime();
+		fluentWait(timespage.btnSubscribeNow);
+		seleniumUtil.click(timespage.btnSubscribeNow);
+		Thread.sleep(5000);
+		By[] listOfElements = {timespage.txtFirstName,timespage.txtEmail,timespage.ddlCity,timespage.ddlLanguage,
+				timespage.ddlState,timespage.ddlCountry,timespage.txtMobile,timespage.txtPincode,timespage.txtSchoolName};
+		commonMethods.CheckRequiredAttribute("required",listOfElements);
 	}
-*/	
+	
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyMinMaxLengthValidation(String projectURL) throws Exception {
 		commonMethods.LoadEmailPage(projectURL);
-		commonMethods.CheckRequiredAttribute("minlength");
-		commonMethods.CheckRequiredAttribute("maxlength");
+		By[] listOfElements = {register.txtFirstName,register.txtMobile,register.txtPassword,register.txtConfirmPassword,register.ddlBoard,register.ddlGrade,register.chkTNC};
+		commonMethods.CheckRequiredAttribute("minlength",listOfElements);
+		commonMethods.CheckRequiredAttribute("maxlength",listOfElements);
 	}
 	
 	@Parameters({ "projectURL" })
@@ -94,7 +102,6 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyExistingNumberAndConfirmPasswordValidation(String projectURL) throws Exception {
-		//TODO add confirm password validation code confirmPassword-error
 		commonMethods.LoadEmailPage(projectURL);
 		seleniumUtil.enterText(register.txtFirstName, "khushal");
 		seleniumUtil.enterText(register.txtLastName, "Parikh");
@@ -126,11 +133,9 @@ public class RegValidationCheck extends PageObjects {
 		}
 		seleniumUtil.click(register.chkTNC);
 		Thread.sleep(2000);
-		seleniumUtil.doubleClick(register.btnRegister);
+		seleniumUtil.clickByJavaScriptExecutor(register.btnRegister);
 		Thread.sleep(2500);
 
-		
-		
 		String alertText = getAlertText();		
 		assertEquals(alertText, "You already have an account associated with this mobile number. Do you want to reset the password?");
 		

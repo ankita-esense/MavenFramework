@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.topscorer.common.CommonMethods;
-import com.topscorer.pages.forgotpage;
+import com.topscorer.pages.ForgotPage;
 import com.topscorer.utilities.*;
 
 public class forgotpassword extends PageObjects  {
