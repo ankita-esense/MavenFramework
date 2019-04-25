@@ -8,7 +8,9 @@ import org.openqa.selenium.remote.server.handler.ClearElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -23,7 +25,7 @@ public class RegValidationCheck extends PageObjects {
 	String expectedUserName;
 
 	@Parameters({ "browserName" })
-	@BeforeMethod
+	@BeforeSuite
 	public void setUp(String browserName) {
 		seleniumUtil.openBrowser(browserName);
 	}
@@ -32,11 +34,14 @@ public class RegValidationCheck extends PageObjects {
 	public void postCondition(ITestResult result) throws Exception {
 		if (ITestResult.FAILURE == result.getStatus()) {
 			snapShot(System.getProperty("user.dir") + "\\Screenshots\\RegistrationValidations\\", result.getName());
-		} else {
-			driver.close();
-		}
+		} 
 	}
 
+	@AfterSuite
+	public void closeBrowser() {
+		seleniumUtil.quitBrowser();
+	}
+	
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyRequiredFieldsValidation(String projectURL) throws Exception {

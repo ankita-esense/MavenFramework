@@ -75,6 +75,28 @@ public class CommonMethods extends PageObjects {
 		return txtMobile;
 	}
 
+	public String userRegistrationForResendFunctionality(String strFileName) throws Exception {
+		// User Registration
+		// String strFileName = "./TestData/Registration.xlsx";
+		String txtMobile = fillInputFields(strFileName);
+		String otp1 = getOtp();
+		seleniumUtil.click(register.lnkResend);
+		
+		Thread.sleep(2500);
+		try {
+			Alert alert = driver.switchTo().alert();
+			String alertMessage = driver.switchTo().alert().getText();
+			commonMethods.LogInfo("Alert Message: " + alertMessage);
+			alert.accept();
+		} catch (Exception e) {
+			commonMethods.LogInfo("No Alert required.");
+		}
+		seleniumUtil.pageLoadTime();
+		String otp2 = getOtp();
+		Assert.assertNotEquals(otp1, otp2);
+		return txtMobile;
+	}
+	
 	public String fillInputFields(String strFileName) throws Exception {
 		String strSheetName = "Register";
 		strFirstName = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 1);

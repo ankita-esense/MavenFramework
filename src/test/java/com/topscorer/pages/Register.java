@@ -29,6 +29,6 @@ public class Register {
 	//From Otp Page
 	public By txtOtp = By.id("otp");
 	public By btnOtp = By.id("btnVerifyMobile");
-	
+	public By lnkResend = By.xpath("//*[@id='resendOTP']/a");
 	
 }
