@@ -25,7 +25,7 @@ public class RegValidationCheck extends PageObjects {
 	String expectedUserName;
 
 	@Parameters({ "browserName" })
-	@BeforeSuite
+	@BeforeMethod
 	public void setUp(String browserName) {
 		seleniumUtil.openBrowser(browserName);
 	}
@@ -34,7 +34,10 @@ public class RegValidationCheck extends PageObjects {
 	public void postCondition(ITestResult result) throws Exception {
 		if (ITestResult.FAILURE == result.getStatus()) {
 			snapShot(System.getProperty("user.dir") + "\\Screenshots\\RegistrationValidations\\", result.getName());
-		} 
+			driver.close();
+		}else {
+			driver.close();
+		}
 	}
 
 	@AfterSuite
@@ -179,4 +182,18 @@ public class RegValidationCheck extends PageObjects {
 		assertEquals(actualMsg, "Invalid One Time Password (OTP).");
 		
 	}
+	
+	@Parameters({ "projectURL" })
+	@Test
+	public void VerifyResendOtpFunctionality(String projectURL) throws Exception {
+		seleniumUtil.openURL(projectURL);
+		seleniumUtil.pageLoadTime();
+		seleniumUtil.click(register.btnLoginRegister);
+		seleniumUtil.pageLoadTime();
+		seleniumUtil.click(register.btnEmail);
+		seleniumUtil.pageLoadTime();
+		commonMethods.userRegistrationForResendFunctionality(strFileName);
+		Thread.sleep(5000);
+	}
+	
 }

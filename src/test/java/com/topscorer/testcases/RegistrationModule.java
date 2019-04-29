@@ -224,16 +224,4 @@ public class RegistrationModule extends PageObjects {
 		Thread.sleep(2500);
 	}
 
-	@Parameters({ "projectURL" })
-	@Test
-	public void TC08_To_Verify_Resend_Otp_Functionality(String projectURL) throws Exception {
-		seleniumUtil.openURL(projectURL);
-		seleniumUtil.pageLoadTime();
-		seleniumUtil.click(register.btnLoginRegister);
-		seleniumUtil.pageLoadTime();
-		seleniumUtil.click(register.btnEmail);
-		seleniumUtil.pageLoadTime();
-		commonMethods.userRegistrationForResendFunctionality(strFileName);
-		Thread.sleep(5000);
-	}
 }

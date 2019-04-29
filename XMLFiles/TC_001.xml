@@ -12,6 +12,12 @@
 			</class>
 			<class name="com.topscorer.testcases.forgotpassword">
 			</class>
+			<class name="com.topscorer.testcases.TS03_OnlineOrders">
+			</class>
+			<class name="com.topscorer.testcases.TS05_My_Orders">
+			</class>
+			<class name="com.topscorer.testcases.TS04_Off_line_Orders">
+			</class>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->	
