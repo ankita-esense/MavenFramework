@@ -15,7 +15,7 @@ public class TS05_My_Orders extends PageObjects {
 
 	String strFileName_myOrders = "./TestData/My Orders.xlsx";
 	String strSheetName_myOrders = "my_orders";
-
+	String data[];
 	@Parameters({ "browserName", "projectURL" })
 	@BeforeMethod
 	public void setUp(String browserName, String projectURL) throws Exception {
@@ -60,7 +60,7 @@ public class TS05_My_Orders extends PageObjects {
 		seleniumUtil.implicitLoadTime();
 		seleniumUtil.click(checkoutPage.btn_Register);
 		Thread.sleep(2500);
-		commonMethods.userRegistration_buy_modal();
+		data = commonMethods.userRegistration_buy_modal();
 
 		Thread.sleep(2500);
 
@@ -115,7 +115,7 @@ public class TS05_My_Orders extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void TC02_To_verify_study_now_button_on_my_order_page(String projectURL) throws Exception {
-		commonMethods.userLogin(commonMethods.txtMobile, commonMethods.txtPassword);
+		commonMethods.userLogin(data[0], data[1]);
 		seleniumUtil.click(dashboard.ddlToggle_userName);
 		seleniumUtil.click(dashboard.lnk_myProfile);
 		seleniumUtil.implicitLoadTime();
@@ -130,7 +130,7 @@ public class TS05_My_Orders extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void TC03_To_verify_rate_and_review_button_on_my_order_page(String projectURL) throws Exception {
-		commonMethods.userLogin(commonMethods.txtMobile, commonMethods.txtPassword);
+		commonMethods.userLogin(data[0], data[1]);
 		seleniumUtil.click(dashboard.ddlToggle_userName);
 		seleniumUtil.click(dashboard.lnk_myProfile);
 		seleniumUtil.implicitLoadTime();
