@@ -3,6 +3,7 @@ import org.apache.log4j.Logger;
 import com.topscorer.common.CommonMethods;
 import com.topscorer.pages.*;
 import com.topscorer.testcases.forgotpassword;
+import com.topscorer.testcases.loginCheck;
 
 public class PageObjects extends UtilityMethods {
 	public static final Logger log = Logger.getLogger(PageObjects.class.getName());
@@ -35,9 +36,9 @@ public class PageObjects extends UtilityMethods {
 	public static CoursePage coursePage = new CoursePage();
 	public static HomePage homePage = new HomePage();
 	//public static StudyPage studyPage = new StudyPage();
-	
 	public static CheckoutPage checkoutPage = new CheckoutPage();
 	public static SubjectPage subjectPage = new SubjectPage();
+	
 	//public static PracticeTest practiceTest = new PracticeTest();
 	//public static QuizPage quizPage = new QuizPage();
 	//public static Analytics analytics = new Analytics();

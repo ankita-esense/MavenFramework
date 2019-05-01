@@ -59,7 +59,7 @@ public class forgotpassword extends PageObjects  {
 		seleniumUtil.click(register.btnLoginRegister);
 		seleniumUtil.click(forgotp.btnforgotpwd);
 		seleniumUtil.pageLoadTime();
-		seleniumUtil.enterText(forgotp.txtmobileno,"1075041527");
+		seleniumUtil.enterText(forgotp.txtmobileno,"1329752357");
 		//seleniumUtil.waitForElementVisibile(forgotp.drprole);
 		By option2 = By.xpath("//*[@id='role']/option[2]");
 		seleniumUtil.fluentWait(option2);
@@ -70,7 +70,7 @@ public class forgotpassword extends PageObjects  {
 		String actualMsg = driver.findElement(By.xpath("//font[@color='green']")).getText();
 		//assertEquals(actualMsg, "Invalid One Time Password (OTP).");
 		System.out.println(actualMsg);
-		Assert.assertEquals(actualMsg,"Reset Password link sent to 1075041527.");
+		Assert.assertEquals(actualMsg,"Reset Password link sent to 1329752357.");
 		
 		
 		

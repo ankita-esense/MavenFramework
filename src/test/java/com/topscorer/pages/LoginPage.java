@@ -7,4 +7,5 @@ public class LoginPage {
 	public By btnNext = By.id("btnNext");
 	public By txtPassword = By.name("password");
 	public By btnLogin = By.id("btnLogin");
+	public By lblselectrole = By.xpath("//h3[contains(text(),'Select your role')]");
 }
