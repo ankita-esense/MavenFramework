@@ -5,6 +5,7 @@ import static org.testng.Assert.fail;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.topscorer.testcases.RegistrationModule;
 import com.topscorer.utilities.*;
 
 import io.restassured.RestAssured;
@@ -32,9 +34,8 @@ public class CommonMethods extends PageObjects {
 	public static String strFirstName;
 	public static String txtLastName;
 	public static String txtMobile;
-	public static String ddlBoard,ddlGrade;
-	
-	
+	public static String ddlBoard, ddlGrade;
+
 	public void userLogin(String userEmail, String userPassword) throws Exception {
 
 		if (seleniumUtil.isElementDisplayed(register.btnLoginRegister) == true) {
@@ -59,14 +60,19 @@ public class CommonMethods extends PageObjects {
 			log.info("User is logged In");
 		}
 	}
-	
+
 	public String userRegistration(String strFileName) throws Exception {
 		// User Registration
 		// String strFileName = "./TestData/Registration.xlsx";
 		String txtMobile = fillInputFields(strFileName);
 		String otp = getOtp();
 		seleniumUtil.enterText(register.txtOtp, otp);
-		seleniumUtil.click(register.btnOtp);
+		if (RegistrationModule.isOffers == true) {
+			By offers_otp_verify = By.id("btnOtpVerify");
+			seleniumUtil.click(offers_otp_verify);
+		}else {
+			seleniumUtil.click(register.btnOtp);
+		}
 		Thread.sleep(2500);
 		try {
 			Alert alert = driver.switchTo().alert();
@@ -84,12 +90,12 @@ public class CommonMethods extends PageObjects {
 		// User Registration
 		// String strFileName = "./TestData/Registration.xlsx";
 		String txtMobile = fillInputFields(strFileName);
-		
+
 		Thread.sleep(2500);
-		
+
 		String otp1 = getOtp();
 		seleniumUtil.click(register.lnkResend);
-		
+
 		Thread.sleep(2500);
 		try {
 			Alert alert = driver.switchTo().alert();
@@ -110,7 +116,7 @@ public class CommonMethods extends PageObjects {
 
 		seleniumUtil.enterText(register.txtOtp, otp2);
 		seleniumUtil.click(register.btnOtp);
-		
+
 		Thread.sleep(2500);
 		try {
 			Alert alert = driver.switchTo().alert();
@@ -121,10 +127,10 @@ public class CommonMethods extends PageObjects {
 			commonMethods.LogInfo("No Alert required.");
 		}
 		seleniumUtil.pageLoadTime();
-		
+
 		return txtMobile;
 	}
-	
+
 	public String fillInputFields(String strFileName) throws Exception {
 		String strSheetName = "Register";
 		strFirstName = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 1);
@@ -181,20 +187,35 @@ public class CommonMethods extends PageObjects {
 		driver.switchTo().window(tabs2.get(1));
 		driver.get("https://www.topscorer.co.in/qa-2018/lms/ajax/printData");
 		String jsonbody = driver.findElement(By.xpath("/html/body")).getText();
-		
-		Pattern p = Pattern.compile("otp\"\\:([0-9]*)");
-        Matcher m = p.matcher(jsonbody);
-        while(m.find()) {
-            if(m.group().length()!=0) {
-            	jsonbody = m.group();
-            	break;
-            }
-        }
-		
-		System.out.println("otp: " + jsonbody);
-		driver.close();
-		driver.switchTo().window(tabs2.get(0));
-		return jsonbody.substring(5, 11);
+
+		if (RegistrationModule.isOffers == true) {
+			Pattern p = Pattern.compile("offer_otp\"\\:([0-9]*)");
+			Matcher m = p.matcher(jsonbody);
+			while (m.find()) {
+				if (m.group().length() != 0) {
+					jsonbody = m.group();
+					break;
+				}
+			}
+			jsonbody = jsonbody.substring(11, 17);
+			System.out.println("otp: " + jsonbody);
+			driver.close();
+			driver.switchTo().window(tabs2.get(0));
+		} else {
+			Pattern p = Pattern.compile("otp\"\\:([0-9]*)");
+			Matcher m = p.matcher(jsonbody);
+			while (m.find()) {
+				if (m.group().length() != 0) {
+					jsonbody = m.group();
+					break;
+				}
+			}
+			jsonbody = jsonbody.substring(5, 11);
+			System.out.println("otp: " + jsonbody);
+			driver.close();
+			driver.switchTo().window(tabs2.get(0));
+		}
+		return jsonbody;
 	}
 
 	public void LoadEmailPage(String projectURL) {
@@ -216,8 +237,7 @@ public class CommonMethods extends PageObjects {
 					java.lang.reflect.Field[] x = listOfElements.getClass().getDeclaredFields();
 					System.out.println(atr + " validation is available in " + listOfElements[i] + " element.");
 				}
-			}
-			else if(i==0||i==2||i==3){
+			} else if (i == 0 || i == 2 || i == 3) {
 				if (driver.findElement(listOfElements[i]).getAttribute(atr) == null) {
 					System.out.println(atr + " validation is missing from " + listOfElements[i] + " element.");
 					Assert.fail(atr + " validation is missing from " + listOfElements[i] + " element.");
@@ -227,7 +247,7 @@ public class CommonMethods extends PageObjects {
 				}
 			}
 	}
-	
+
 	public void communication() throws Exception {
 		seleniumUtil.clickByJavaScriptExecutor(checkoutPage.btn_add_address);
 		seleniumUtil.enterText(checkoutPage.txt_full_name, "Khushal Parikh");
@@ -241,7 +261,7 @@ public class CommonMethods extends PageObjects {
 		seleniumUtil.click(checkoutPage.btn_save_add);
 
 	}
-	
+
 	public String[] userRegistration_buy_modal() throws Exception {
 
 		String strFileName = "./TestData/Registration.xlsx";
@@ -278,7 +298,7 @@ public class CommonMethods extends PageObjects {
 		cred[1] = txtPassword;
 		return cred;
 	}
-	
+
 	public void emptyCart(String projectURL) throws Exception {
 		/*
 		 * User logged in required
@@ -306,13 +326,13 @@ public class CommonMethods extends PageObjects {
 		Thread.sleep(5000);
 
 	}
-	
+
 	public String getPrice(By locator) {
 		String strFirstName = seleniumUtil.getText(locator).replace("₹", "");
 		log.info("Price:= " + strFirstName);
 		return strFirstName.trim();
 	}
-	
+
 	public void userLoggedOut() throws Exception {
 		seleniumUtil.click(dashboard.ddlToggle_userName);
 		seleniumUtil.click(dashboard.lnk_logout);
@@ -320,7 +340,7 @@ public class CommonMethods extends PageObjects {
 		Assert.assertTrue(seleniumUtil.isElementDisplayed(homePage.btnLoginRegister));
 
 	}
-	
+
 	public void userLogin_at_checkOutPage(String userEmail, String userPassword) throws Exception {
 
 		if (seleniumUtil.isElementDisplayed(checkoutPage.btn_login) == true) {

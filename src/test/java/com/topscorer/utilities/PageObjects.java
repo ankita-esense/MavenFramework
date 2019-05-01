@@ -28,7 +28,7 @@ public class PageObjects extends UtilityMethods {
 	public static LoginPage loginpage = new LoginPage();
 	public static TimesPage timespage = new TimesPage();
 	public static ProfilePage profilepage = new ProfilePage();
-	
+	public static OffersPage offersPage = new OffersPage();
 	public static CartPage cartPage = new CartPage();
 	public static Dashboard dashboard = new Dashboard();
 	public static Standard standard = new Standard();
