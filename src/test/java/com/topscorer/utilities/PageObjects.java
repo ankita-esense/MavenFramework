@@ -35,9 +35,9 @@ public class PageObjects extends UtilityMethods {
 	public static CoursePage coursePage = new CoursePage();
 	public static HomePage homePage = new HomePage();
 	//public static StudyPage studyPage = new StudyPage();
-	
 	public static CheckoutPage checkoutPage = new CheckoutPage();
 	public static SubjectPage subjectPage = new SubjectPage();
+	
 	//public static PracticeTest practiceTest = new PracticeTest();
 	//public static QuizPage quizPage = new QuizPage();
 	//public static Analytics analytics = new Analytics();

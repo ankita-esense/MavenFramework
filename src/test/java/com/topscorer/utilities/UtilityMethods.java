@@ -531,6 +531,6 @@ public class UtilityMethods {
 	public Integer getElementCounts(By locator) throws Exception {
 		List<WebElement> element = driver.findElements(locator);
 		return element.size();
-	}
+	} 
 
 }
