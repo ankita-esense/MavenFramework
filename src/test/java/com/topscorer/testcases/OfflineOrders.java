@@ -10,7 +10,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.topscorer.utilities.PageObjects;
 
-public class TS04_Off_line_Orders extends PageObjects {
+public class OfflineOrders extends PageObjects {
 	String strFileName_BuyModal = "./TestData/Buy Modal.xlsx";
 	String strSheetName_off_line = "Off-line Orders";
 

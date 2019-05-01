@@ -57,6 +57,11 @@ public class RegistrationModule extends PageObjects {
 		String str_ddlToggle_userName = seleniumUtil.getText(username);
 		softAssert.assertEquals(str_ddlToggle_userName.replaceAll("\\s+", ""), expectedUserName.replaceAll("\\s+", ""),
 				"Fail: User Name does't matched.");
+		By boardMedium= By.xpath("//*[@id='free']/div[1]/div[1]/div/div/div[2]/h6[1]");
+		String boardMediumtext = seleniumUtil.getText(boardMedium);
+		if(!(boardMediumtext.toLowerCase().contains(commonMethods.ddlBoard.substring(0, 7).toLowerCase()) && boardMediumtext.toLowerCase().contains(commonMethods.ddlGrade.toLowerCase()))) {
+			Assert.fail("board-medium does not matched!");
+		}
 		softAssert.assertAll();
 	}
 
@@ -130,7 +135,7 @@ public class RegistrationModule extends PageObjects {
 		softAssert.assertAll();
 	}
 
-	@Parameters({ "projectURL" })
+	/*@Parameters({ "projectURL" })
 	@Test
 	public void TC04_To_verify_student_registration_functionality_through_Times(String projectURL) throws Exception {
 		seleniumUtil.openURL(projectURL + "Times");
@@ -163,7 +168,7 @@ public class RegistrationModule extends PageObjects {
 		String strGetThanksMsg = seleniumUtil.getText(timespage.lblThanksText);
 		Assert.assertEquals(strGetThanksMsg, "Thanks For Your Interest In TIMES NEWSLETTER",
 				"Thanks For Your Interest In TIMES NEWSLETTER lable not found");
-	}
+	}*/
 
 	@Parameters({ "projectURL" })
 	@Test
@@ -190,6 +195,11 @@ public class RegistrationModule extends PageObjects {
 		String str_ddlToggle_userName = seleniumUtil.getText(username);
 		softAssert.assertEquals(str_ddlToggle_userName.replaceAll("\\s+", ""), expectedUserName.replaceAll("\\s+", ""),
 				"Fail: User Name does't matched.");
+		By boardMedium= By.xpath("//*[@id='free']/div[1]/div[1]/div/div/div[2]/h6[1]");
+		String boardMediumtext = seleniumUtil.getText(boardMedium);
+		if(!(boardMediumtext.toLowerCase().contains(commonMethods.ddlBoard.substring(0, 7).toLowerCase()) && boardMediumtext.toLowerCase().contains(commonMethods.ddlGrade.toLowerCase()))) {
+			Assert.fail("board-medium does not matched!");
+		}
 		softAssert.assertAll();
 	}
 

@@ -15,7 +15,7 @@ import com.topscorer.common.CommonMethods;
 import com.topscorer.pages.ForgotPage;
 import com.topscorer.utilities.*;
 
-public class forgotpassword extends PageObjects  {
+public class ForgotPassword extends PageObjects  {
 	
 	
 	@Parameters({ "browserName" })

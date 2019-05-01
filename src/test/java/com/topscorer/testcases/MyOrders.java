@@ -11,7 +11,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.topscorer.utilities.PageObjects;
 
-public class TS05_My_Orders extends PageObjects {
+public class MyOrders extends PageObjects {
 
 	String strFileName_myOrders = "./TestData/My Orders.xlsx";
 	String strSheetName_myOrders = "my_orders";

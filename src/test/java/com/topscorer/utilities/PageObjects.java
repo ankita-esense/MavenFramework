@@ -2,7 +2,7 @@ package com.topscorer.utilities;
 import org.apache.log4j.Logger;
 import com.topscorer.common.CommonMethods;
 import com.topscorer.pages.*;
-import com.topscorer.testcases.forgotpassword;
+import com.topscorer.testcases.ForgotPassword;
 
 public class PageObjects extends UtilityMethods {
 	public static final Logger log = Logger.getLogger(PageObjects.class.getName());
@@ -17,7 +17,7 @@ public class PageObjects extends UtilityMethods {
 	// ****************
 
 	public static UtilityMethods seleniumUtil = new UtilityMethods();
-	public static forgotpassword forgotpwd = new forgotpassword();
+	public static ForgotPassword forgotpwd = new ForgotPassword();
 	public static ExcelUtils excelUtil = new ExcelUtils();
 
 	// ****************

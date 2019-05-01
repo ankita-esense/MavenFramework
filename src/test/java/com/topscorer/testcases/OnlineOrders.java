@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.topscorer.utilities.PageObjects;
 
-public class TS03_OnlineOrders extends PageObjects {
+public class OnlineOrders extends PageObjects {
 
 	String strFileName_BuyModal = "./TestData/Buy Modal.xlsx";
 	String strSheetName_online = "online";

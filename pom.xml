@@ -92,7 +92,6 @@
     <version>LATEST</version>
 </dependency>
 
-
 <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
 <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
 <dependency>
@@ -110,41 +109,10 @@
 				<version>3.0.0-M3</version>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>XMLFiles/TC_001.xml</suiteXmlFile>
+						<suiteXmlFile>XMLFiles/TestNG.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	</build> 
 </project>

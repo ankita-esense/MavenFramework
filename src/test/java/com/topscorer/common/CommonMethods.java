@@ -32,7 +32,9 @@ public class CommonMethods extends PageObjects {
 	public static String strFirstName;
 	public static String txtLastName;
 	public static String txtMobile;
-
+	public static String ddlBoard,ddlGrade;
+	
+	
 	public void userLogin(String userEmail, String userPassword) throws Exception {
 
 		if (seleniumUtil.isElementDisplayed(register.btnLoginRegister) == true) {
@@ -140,8 +142,8 @@ public class CommonMethods extends PageObjects {
 		LogInfo("Password: " + txtPassword);
 		LogInfo("User Mobile: " + txtMobile);
 
-		String ddlBoard = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 6);
-		String ddlGrade = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 7);
+		ddlBoard = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 6);
+		ddlGrade = excelUtil.getDataFromExcel(strFileName, strSheetName, 1, 7);
 
 		seleniumUtil.enterText(register.txtFirstName, strFirstName);
 		seleniumUtil.enterText(register.txtLastName, txtLastName);

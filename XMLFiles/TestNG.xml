@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AllSuites" verbose="2">
+  <suite-files>
+    <suite-file path="XMLFiles/RegistrationModule.xml" />
+    <suite-file path="XMLFiles/MyOrders.xml" />
+    <suite-file path="XMLFiles/OnlineOrders.xml" />
+    <suite-file path="XMLFiles/OfflineOrders.xml" />
+    <suite-file path="XMLFiles/RegValidationCheck.xml" />
+  	<suite-file path="XMLFiles/ForgetPassword.xml" />
+  </suite-files>
+</suite>
+
