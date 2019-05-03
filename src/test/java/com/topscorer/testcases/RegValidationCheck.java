@@ -25,7 +25,7 @@ public class RegValidationCheck extends PageObjects {
 	String expectedUserName;
 
 	@Parameters({ "browserName" })
-	@BeforeMethod
+	@BeforeSuite
 	public void setUp(String browserName) {
 		seleniumUtil.openBrowser(browserName);
 	}
@@ -34,8 +34,6 @@ public class RegValidationCheck extends PageObjects {
 	public void postCondition(ITestResult result) throws Exception {
 		if (ITestResult.FAILURE == result.getStatus()) {
 			snapShot(System.getProperty("user.dir") + "\\Screenshots\\RegistrationValidations\\", result.getName());
-			driver.close();
-		}else {
 			driver.close();
 		}
 	}
@@ -48,6 +46,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyRequiredFieldsValidation(String projectURL) throws Exception {
+		seleniumUtil.deleteAllCookies();
 		commonMethods.LoadEmailPage(projectURL);
 		By[] listOfElements = {register.txtFirstName,register.txtMobile,register.txtPassword,register.txtConfirmPassword,register.ddlBoard,register.ddlGrade,register.chkTNC};
 		commonMethods.CheckRequiredAttribute("required",listOfElements);
@@ -56,6 +55,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyRequiredFieldsValidationForTimesPage(String projectURL) throws Exception {
+		seleniumUtil.deleteAllCookies();
 		commonMethods.openURL(projectURL+"times");
 		seleniumUtil.pageLoadTime();
 		fluentWait(timespage.btnSubscribeNow);
@@ -69,6 +69,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyMinMaxLengthValidation(String projectURL) throws Exception {
+		seleniumUtil.deleteAllCookies();
 		commonMethods.LoadEmailPage(projectURL);
 		By[] listOfElements = {register.txtFirstName,register.txtMobile,register.txtPassword,register.txtConfirmPassword,register.ddlBoard,register.ddlGrade,register.chkTNC};
 		commonMethods.CheckRequiredAttribute("minlength",listOfElements);
@@ -78,7 +79,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyValidMobileNumber(String projectURL) throws Exception {
-		//TODO add confirm password validation code
+		seleniumUtil.deleteAllCookies();
 		commonMethods.LoadEmailPage(projectURL);
 		seleniumUtil.enterText(register.txtFirstName, "khushal");
 		seleniumUtil.enterText(register.txtLastName, "Parikh");
@@ -110,6 +111,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyExistingNumberAndConfirmPasswordValidation(String projectURL) throws Exception {
+		seleniumUtil.deleteAllCookies();
 		commonMethods.LoadEmailPage(projectURL);
 		seleniumUtil.enterText(register.txtFirstName, "khushal");
 		seleniumUtil.enterText(register.txtLastName, "Parikh");
@@ -156,6 +158,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test(priority=1)
 	public void TermsAndConditionsPopup(String projectURL) throws InterruptedException {
+		seleniumUtil.deleteAllCookies();
 		commonMethods.LoadEmailPage(projectURL);
 		seleniumUtil.click(register.lnkTerms);
 		Thread.sleep(2000);
@@ -168,6 +171,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyOtpValidations(String projectURL) throws Exception {
+		seleniumUtil.deleteAllCookies();
 		commonMethods.LoadEmailPage(projectURL);
 		commonMethods.fillInputFields(strFileName);
 		Thread.sleep(2500);
@@ -186,6 +190,7 @@ public class RegValidationCheck extends PageObjects {
 	@Parameters({ "projectURL" })
 	@Test
 	public void VerifyResendOtpFunctionality(String projectURL) throws Exception {
+		seleniumUtil.deleteAllCookies();
 		seleniumUtil.openURL(projectURL);
 		seleniumUtil.pageLoadTime();
 		seleniumUtil.click(register.btnLoginRegister);

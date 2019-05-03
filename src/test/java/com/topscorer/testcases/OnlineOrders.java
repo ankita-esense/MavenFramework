@@ -264,11 +264,6 @@ public class OnlineOrders extends PageObjects {
 
 		seleniumUtil.enterText(checkoutPage.txt_promoCode, strPromoCode);
 		seleniumUtil.click(checkoutPage.btn_apply);
-//		String strGetPromoCodeMsg = seleniumUtil.getText(checkoutPage.lbl_pramocode_msg);
-//		String strPromoCodeMsg = excelUtil.getDataFromExcel(strFileName_BuyModal, strSheetName_online, 1, 17);
-//		
-//		softAssert.assertEquals(strPromoCodeMsg, strGetPromoCodeMsg,
-//				"'Promo code has been successfully applied' message does not matched.");
 		boolean btnOK = seleniumUtil.isElementDisplayed(checkoutPage.btn_ok);
 		if (btnOK == true) {
 			seleniumUtil.clickByJavaScriptExecutor(checkoutPage.btn_ok);
@@ -533,14 +528,10 @@ public class OnlineOrders extends PageObjects {
 			commonMethods.LogInfo("Grand total price is greater than to 0. :" + G_total_price);
 
 		}
-
 		boolean tabMyOrder = seleniumUtil.isElementDisplayed(profilepage.tab_active_MyOrders);
-
 		softAssert.assertEquals(tabMyOrder, true,
 				"After applying the promo code, page is not redirected to My orders page.");
-
 		softAssert.assertAll();
-
 	}
 
 	@Parameters({ "projectURL" })

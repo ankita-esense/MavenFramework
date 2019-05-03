@@ -57,6 +57,7 @@ public class UtilityMethods {
 			// Enable Flash for this site
 			prefs.put("PluginsAllowedForUrls", "https://arlo.netgear.com");
 			options.setExperimentalOption("prefs", prefs);
+			options.addArguments("--disable-features=VizDisplayCompositor");
 			System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
 			driver = new ChromeDriver(options);
 		}
